@@ -1,30 +1,48 @@
 #include <iostream>
-#include <locale.h>
+#include <string>
 #include <windows.h>
+
 using namespace std;
 
-void gotoxy(short x, short y)
+int main()
 {
-    COORD coord = {x, y};
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
+    string mensagem = "";
+    cout << "Digite uma mensagem: ";
+    getline(cin, mensagem);
 
-int main(int argc, char **argv)
-{
-    string frase = "";
-    int aux = 10;
-    cout << "Digite alguma frase: ";
-    cin >> frase;
+    int tamanhoMensagem = mensagem.length();
 
-    gotoxy(10, 10);
-    cout << frase << endl;
+    int espacosAntes = (80 - tamanhoMensagem) / 2;
 
-    for (string::iterator it = frase.begin(); it < frase.end(); ++it)
+    for (int i = 0; i < espacosAntes; i++)
     {
-        ++aux;
-        gotoxy(11, aux);
-        cout << *it << " ";
+        cout << " ";
     }
 
-    cout << endl;
+    cout << mensagem << endl;
+
+    for (int i = 0; i < 15; i++)
+    {
+        Sleep(1000);
+        system("cls");
+
+        for (int j = 0; j < espacosAntes; j++)
+        {
+            cout << " ";
+        }
+        for (int j = 0; j < tamanhoMensagem; j++)
+        {
+            if (i == j)
+            {
+                cout << mensagem[j];
+            }
+            else
+            {
+                cout << " ";
+            }
+        }
+        cout << endl;
+    }
+
+    return 0;
 }
